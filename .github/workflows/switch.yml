@@ -1,6 +1,7 @@
 name: Nintendo Switch
 
 on:
+  workflow_dispatch:
   push:
     branches: [ switch-port ]
   pull_request:
