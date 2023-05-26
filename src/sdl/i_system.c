@@ -78,7 +78,7 @@ typedef LPVOID (WINAPI *p_MapViewOfFile) (HANDLE, DWORD, DWORD, DWORD, SIZE_T);
 #include "SDL_cpuinfo.h"
 #define HAVE_SDLCPUINFO
 
-#if defined (__unix__) || defined(__APPLE__) || (defined (UNIXCOMMON) && !defined (__HAIKU__))
+#if defined (__unix__) || defined(__APPLE__) || (defined (UNIXCOMMON) && !defined (__HAIKU__) && !defined (__SWITCH__))
 #if defined (__linux__)
 #include <sys/vfs.h>
 #else
@@ -102,7 +102,7 @@ typedef LPVOID (WINAPI *p_MapViewOfFile) (HANDLE, DWORD, DWORD, DWORD, SIZE_T);
 #endif
 #endif
 
-#if defined (__unix__) || (defined (UNIXCOMMON) && !defined (__APPLE__))
+#if defined (__unix__) || (defined (UNIXCOMMON) && !defined (__APPLE__) && !defined(__SWITCH__))
 #include <errno.h>
 #include <sys/wait.h>
 #define NEWSIGNALHANDLER
@@ -137,11 +137,12 @@ typedef LPVOID (WINAPI *p_MapViewOfFile) (HANDLE, DWORD, DWORD, DWORD, SIZE_T);
 #include <errno.h>
 #endif
 
-#if defined (__unix__) || defined(__APPLE__) || defined (UNIXCOMMON)
+#if (defined (__unix__) || defined(__APPLE__) || defined (UNIXCOMMON)) && !defined(__SWITCH__)
 #include <execinfo.h>
 #include <time.h>
 #define UNIXBACKTRACE
 #endif
+
 
 // Locations to directly check for srb2.pk3 in
 const char *wadDefaultPaths[] = {
@@ -150,6 +151,17 @@ const char *wadDefaultPaths[] = {
 	"/usr/local/games/SRB2",
 	"/usr/share/games/SRB2",
 	"/usr/games/SRB2",
+#endif
+
+// Locations for searching the srb2.pk3
+#if defined (__unix__) || defined(__APPLE__) || defined (UNIXCOMMON) && !defined(__SWITCH__)
+#define DEFAULTWADLOCATION1 "/usr/local/share/games/SRB2"
+#define DEFAULTWADLOCATION2 "/usr/local/games/SRB2"
+#define DEFAULTWADLOCATION3 "/usr/share/games/SRB2"
+#define DEFAULTWADLOCATION4 "/usr/games/SRB2"
+#define DEFAULTSEARCHPATH1 "/usr/local/games"
+#define DEFAULTSEARCHPATH2 "/usr/games"
+#define DEFAULTSEARCHPATH3 "/usr/local"
 #elif defined (_WIN32)
 	"c:\\games\\srb2",
 	"\\games\\srb2",
@@ -2632,7 +2644,7 @@ void I_ShutdownSystem(void)
 void I_GetDiskFreeSpace(INT64 *freespace)
 {
 #if defined (__unix__) || defined(__APPLE__) || defined (UNIXCOMMON)
-#if defined (SOLARIS) || defined (__HAIKU__)
+#if defined (SOLARIS) || defined (__HAIKU__) || defined (__SWITCH__)
 	*freespace = INT32_MAX;
 	return;
 #else // Both Linux and BSD have this, apparently.
@@ -2712,7 +2724,7 @@ char *I_GetUserName(void)
 INT32 I_mkdir(const char *dirname, INT32 unixright)
 {
 //[segabor]
-#if defined (__unix__) || defined(__APPLE__) || defined (UNIXCOMMON) || defined (__CYGWIN__)
+#if defined (__unix__) || defined(__APPLE__) || defined (UNIXCOMMON) || defined (__CYGWIN__) || defined (__SWITCH__)
 	return mkdir(dirname, unixright);
 #elif defined (_WIN32)
 	UNREFERENCED_PARAMETER(unixright); /// \todo should implement ntright under nt...

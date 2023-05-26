@@ -17,7 +17,9 @@
 #include "d_event.h"
 #include "w_wad.h"
 #include "r_defs.h"
-
+#ifdef __SWITCH__
+#include "switch/swkbd.h"
+#endif
 //------------------------------------
 //           heads up font
 //------------------------------------
@@ -126,6 +128,15 @@ void HU_ClearCEcho(void);
 void HU_SetCEchoDuration(INT32 seconds);
 void HU_SetCEchoFlags(INT32 flags);
 void HU_DoCEcho(const char *msg);
+
+void CHAT_Close();
+void CHAT_SetText(const char* str);
+void CHAT_SendText(const char* str);
+#ifdef __SWITCH__
+SwkbdChangedStringCb CHAT_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg);
+SwkbdMovedCursorCb CHAT_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg);
+SwkbdDecidedEnterCb CHAT_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg);
+#endif
 
 // Demo playback info
 extern UINT32 hu_demoscore;

@@ -326,6 +326,25 @@ static keyname_t keynames[] =
 	{KEY_2MOUSEWHEELUP, "wheel 2 up"},
 	{KEY_2MOUSEWHEELDOWN, "wheel 2 down"},
 
+#if defined (__SWITCH__)
+	{KEY_JOY1+0,  "JOYA"},
+	{KEY_JOY1+1,  "JOYB"},
+	{KEY_JOY1+2,  "JOYX"},
+	{KEY_JOY1+3,  "JOYY"},
+	{KEY_JOY1+4,  "JOYSTICKL"},
+	{KEY_JOY1+5,  "JOYSTICKR"},
+	{KEY_JOY1+6,  "JOYL"},
+	{KEY_JOY1+7,  "JOYR"},
+	{KEY_JOY1+8,  "JOYZL"},
+	{KEY_JOY1+9,  "JOYZR"},
+	{KEY_JOY1+10, "JOYPLUS"},
+	{KEY_JOY1+11, "JOYMINUS"},
+	{KEY_JOY1+12, "JOYLEFT"},
+	{KEY_JOY1+13, "JOYUP"},
+	{KEY_JOY1+14, "JOYRIGHT"},
+	{KEY_JOY1+15, "JOYDOWN"},
+	#define NOMOREJOYBTN_1S
+#else
 	{KEY_JOY1+0, "joy1"},
 	{KEY_JOY1+1, "joy2"},
 	{KEY_JOY1+2, "joy3"},
@@ -335,6 +354,8 @@ static keyname_t keynames[] =
 	{KEY_JOY1+6, "joy7"},
 	{KEY_JOY1+7, "joy8"},
 	{KEY_JOY1+8, "joy9"},
+#endif
+
 #if !defined (NOMOREJOYBTN_1S)
 	// we use up to 32 buttons in DirectInput
 	{KEY_JOY1+9, "joy10"},
@@ -396,6 +417,25 @@ static keyname_t keynames[] =
 	{KEY_DBL2MOUSE1+6, "dblsec_mouse7"},
 	{KEY_DBL2MOUSE1+7, "dblsec_mouse8"},
 
+#if defined (__SWITCH__)
+	{KEY_DBLJOY1+0,  "DBLJOYA"},
+	{KEY_DBLJOY1+1,  "DBLJOYB"},
+	{KEY_DBLJOY1+2,  "DBLJOYX"},
+	{KEY_DBLJOY1+3,  "DBLJOYY"},
+	{KEY_DBLJOY1+4,  "DBLJOYSTICKL"},
+	{KEY_DBLJOY1+5,  "DBLJOYSTICKR"},
+	{KEY_DBLJOY1+6,  "DBLJOYL"},
+	{KEY_DBLJOY1+7,  "DBLJOYR"},
+	{KEY_DBLJOY1+8,  "DBLJOYZL"},
+	{KEY_DBLJOY1+9,  "DBLJOYZR"},
+	{KEY_DBLJOY1+10, "DBLJOYPLUS"},
+	{KEY_DBLJOY1+11, "DBLJOYMINUS"},
+	{KEY_DBLJOY1+12, "DBLJOYLEFT"},
+	{KEY_DBLJOY1+13, "DBLJOYUP"},
+	{KEY_DBLJOY1+14, "DBLJOYRIGHT"},
+	{KEY_DBLJOY1+15, "DBLJOYDOWN"},
+	#define NOMOREJOYBTN_1DBL
+#else
 	{KEY_DBLJOY1+0, "dbljoy1"},
 	{KEY_DBLJOY1+1, "dbljoy2"},
 	{KEY_DBLJOY1+2, "dbljoy3"},
@@ -404,6 +444,7 @@ static keyname_t keynames[] =
 	{KEY_DBLJOY1+5, "dbljoy6"},
 	{KEY_DBLJOY1+6, "dbljoy7"},
 	{KEY_DBLJOY1+7, "dbljoy8"},
+#endif
 #if !defined (NOMOREJOYBTN_1DBL)
 	{KEY_DBLJOY1+8, "dbljoy9"},
 	{KEY_DBLJOY1+9, "dbljoy10"},
@@ -672,6 +713,31 @@ INT32 G_KeyNameToNum(const char *keystr)
 	return 0;
 }
 
+#if defined (__SWITCH__)
+void G_DefineDefaultControls(void)
+{
+	INT32 i;
+
+	for (i = 1; i < num_gamecontrolschemes; i++) // skip gcs_custom (0)
+	{
+		gamecontroldefault[i][GC_JUMP       ][0] = KEY_JOY1+1;  //B
+		gamecontroldefault[i][GC_JUMP       ][1] = KEY_JOY1+7;  //R
+		gamecontroldefault[i][GC_SPIN       ][0] = KEY_JOY1+3;  //Y
+		gamecontroldefault[i][GC_SPIN       ][1] = KEY_JOY1+6;  //L
+		gamecontroldefault[i][GC_TURNRIGHT  ][0] = KEY_JOY1+9;  //ZR
+		gamecontroldefault[i][GC_TURNLEFT   ][0] = KEY_JOY1+8;  //ZL
+		gamecontroldefault[i][GC_CENTERVIEW ][0] = KEY_JOY1+5;  //stick R
+		gamecontroldefault[i][GC_SCORES     ][0] = KEY_JOY1+13; //UP
+		gamecontroldefault[i][GC_TOSSFLAG   ][0] = KEY_JOY1+15; //DOWN
+		gamecontroldefault[i][GC_WEAPONPREV ][0] = KEY_JOY1+12; //LEFT
+		gamecontroldefault[i][GC_WEAPONNEXT ][0] = KEY_JOY1+14; //RIGHT
+		gamecontroldefault[i][GC_FIRE       ][0] = KEY_JOY1+2;  //X
+		gamecontroldefault[i][GC_FIRENORMAL ][0] = KEY_JOY1+0;  //A
+		gamecontroldefault[i][GC_PAUSE      ][0] = KEY_JOY1+10; //Plus
+		gamecontroldefault[i][GC_SYSTEMMENU ][0] = KEY_JOY1+11; //Minus
+	}
+}
+#else
 void G_DefineDefaultControls(void)
 {
 	INT32 i;
@@ -771,6 +837,7 @@ void G_DefineDefaultControls(void)
 		//gamecontrolbisdefault[i][GC_SCORES       ][1] = KEY_2HAT1+1; // D-Pad Down
 	}
 }
+#endif
 
 INT32 G_GetControlScheme(INT32 (*fromcontrols)[2], const INT32 *gclist, INT32 gclen)
 {

@@ -2702,6 +2702,12 @@ static boolean MIT_ChangeMusic(UINT32 menutype, INT32 level, INT32 *retval, void
 	return false;
 }
 
+#ifdef __SWITCH__
+SwkbdChangedStringCb M_Responder_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
+	CV_Set(currentMenu->menuitems[itemOn].itemaction, str);
+}
+#endif
+
 static boolean MIT_SetCurFadeValue(UINT32 menutype, INT32 level, INT32 *retval, void **input, boolean fromoldest)
 {
 	UINT8 defaultvalue = *(UINT8*)*input;
@@ -6549,7 +6555,7 @@ static boolean M_AddonsRefresh(void)
 		}
 
 		S_StartSound(NULL, sfx_strpst);
-		CLEARNAME;
+		if (refreshdirname) { CLEARNAME; } // BRACES ARE REQUIRED BECAUSE OF MACRO FUCKERY
 	}
 
 	return false;
@@ -11773,6 +11779,24 @@ static void M_ConnectIP(INT32 choice)
 		I_FinishUpdate(); // page flip or blit buffer
 }
 
+#ifdef __SWITCH__
+
+SwkbdChangedStringCb M_HandleConnectIP_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
+	SDL_strlcpy(setupm_ip, str, sizeof(setupm_ip));
+}
+
+SwkbdDecidedEnterCb M_HandleConnectIP_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg) {
+	S_StartSound(NULL,sfx_menu1); // Tails
+	currentMenu->lastOn = itemOn;
+	M_ConnectIP(1);
+}
+
+SwkbdMovedCursorCb M_HandleConnectIP_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg) {
+	swkbdInlineSetCursorPos(&switch_kbdinline, strlen(setupm_ip)); // Place swkbd cursor at string end
+}
+
+#endif
+
 // Tails 11-19-2002
 static void M_HandleConnectIP(INT32 choice)
 {
@@ -11792,6 +11816,20 @@ static void M_HandleConnectIP(INT32 choice)
 			break;
 
 		case KEY_ENTER:
+			#ifdef __SWITCH__
+			swkbdInlineSetChangedStringCallback(&switch_kbdinline, M_HandleConnectIP_Switch_SwkbdChanged);
+			swkbdInlineSetMovedCursorCallback(&switch_kbdinline, M_HandleConnectIP_Switch_SwkbdMovedCursor); // No cursor movement
+			swkbdInlineSetDecidedEnterCallback(&switch_kbdinline, M_HandleConnectIP_Switch_SwkbdDecidedEnter);
+			swkbdInlineSetInputText(
+				&switch_kbdinline,
+				setupm_ip // Current value of cvar
+			);
+			swkbdInlineSetCursorPos(&switch_kbdinline, strlen(setupm_ip)); // Place swkbd cursor at string end
+			swkbdInlineSetKeytopTranslate(&switch_kbdinline, 0, 0.445); // Place kb in default location
+			Switch_Keyboard_Open();
+			break;
+			#endif
+
 			S_StartSound(NULL,sfx_menu1); // Tails
 			M_ConnectIP(1);
 			break;
@@ -12118,6 +12156,14 @@ colordraw:
 		W_CachePatchName("M_CURSOR", PU_PATCH));
 }
 
+#ifdef __SWITCH__
+
+void M_HandleSetupMultiPlayer_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
+	SDL_strlcpy(setupm_name, str, sizeof(setupm_name));
+}
+
+#endif
+
 // Handle 1P/2P MP Setup
 static void M_HandleSetupMultiPlayer(INT32 choice)
 {
@@ -12159,6 +12205,19 @@ static void M_HandleSetupMultiPlayer(INT32 choice)
 			break;
 
 		case KEY_ENTER:
+			#ifdef __SWITCH__
+			swkbdInlineSetChangedStringCallback(&switch_kbdinline, M_HandleSetupMultiPlayer_Switch_SwkbdChanged);
+			swkbdInlineSetMovedCursorCallback(&switch_kbdinline, NULL); // No cursor movement
+			swkbdInlineSetDecidedEnterCallback(&switch_kbdinline, NULL);
+			swkbdInlineSetInputText(
+				&switch_kbdinline,
+				setupm_name // Current value of cvar
+			);
+			swkbdInlineSetCursorPos(&switch_kbdinline, strlen(setupm_name)); // Place swkbd cursor at string end
+			swkbdInlineSetKeytopTranslate(&switch_kbdinline, 0, 0); // Place kb in default location
+			Switch_Keyboard_Open();
+			break;
+			#else
 			if (itemOn == 3
 			&& (R_SkinAvailable(setupm_cvdefaultskin->string) != setupm_fakeskin
 			|| setupm_cvdefaultcolor->value != setupm_fakecolor->color))
@@ -12170,6 +12229,7 @@ static void M_HandleSetupMultiPlayer(INT32 choice)
 				break;
 			}
 			/* FALLTHRU */
+			#endif
 		case KEY_RIGHTARROW:
 			if (itemOn == 1)       //player skin
 			{

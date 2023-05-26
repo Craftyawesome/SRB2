@@ -17,9 +17,11 @@ Win32_LIB_ASM_Release
 *.db
 *.opendb
 /.vs
+/.vscode
 /debian
 /assets/debian
 /make
 /bin
 /build
 /build.*
+/obj

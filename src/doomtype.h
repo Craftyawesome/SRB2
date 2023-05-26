@@ -87,7 +87,7 @@ typedef long ssize_t;
 	#define strncasecmp             strnicmp
 	#define strcasecmp              strcmpi
 #endif
-#if defined (__unix__) || defined (__APPLE__) || defined (UNIXCOMMON)
+#if defined (__unix__) || defined (__APPLE__) || defined (UNIXCOMMON) || defined (__SWITCH__)
 	#undef stricmp
 	#define stricmp(x,y) strcasecmp(x,y)
 	#undef strnicmp
@@ -118,7 +118,7 @@ int endswith (const char *base, const char *tag);
 	#endif
 #endif //macintosh
 
-#if defined (_WIN32) || defined (__HAIKU__)
+#if defined (_WIN32) || defined (__HAIKU__) || defined(__SWITCH__)
 #define HAVE_DOSSTR_FUNCS
 #endif
 
@@ -156,6 +156,9 @@ size_t strlcpy(char *dst, const char *src, size_t siz);
 		#define false   FALSE           // use windows types
 		#define true    TRUE
 		#define boolean BOOL
+	#elif defined(__SWITCH__) // defined(__GNUC__)?
+		#include <stdbool.h>  //_bool_true_false_are_defined?
+		#define boolean bool
 	#else
 		typedef enum {false, true} boolean;
 	#endif

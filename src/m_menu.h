@@ -23,6 +23,10 @@
 #include "mserv.h"
 #include "r_things.h" // for SKINNAMESIZE
 
+#ifdef __SWITCH__
+#include "switch/swkbd.h"
+#endif
+
 // Compatibility with old-style named NiGHTS replay files.
 #define OLDNREPLAYNAME
 
@@ -576,5 +580,12 @@ void M_FreePlayerSetupColors(void);
 	0,\
 	NULL\
 }
+
+#ifdef __SWITCH__
+SwkbdChangedStringCb M_Responder_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg);
+SwkbdChangedStringCb M_HandleConnectIP_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg);
+SwkbdDecidedEnterCb M_HandleConnectIP_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg);
+SwkbdMovedCursorCb M_HandleConnectIP_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg);
+#endif
 
 #endif //__X_MENU__

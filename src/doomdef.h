@@ -118,10 +118,10 @@ FILE *fopenfile(const char*, const char*);
 #define LOGMESSAGES // write message in log.txt
 #endif
 
-#ifdef LOGMESSAGES
+// #ifdef LOGMESSAGES
 extern FILE *logstream;
 extern char logfilename[1024];
-#endif
+// #endif
 
 /* A mod name to further distinguish versions. */
 #define SRB2APPLICATION "SRB2"

@@ -30,6 +30,10 @@
 // Object place
 #include "m_cheat.h"
 
+#ifdef __SWITCH__
+#include <switch.h>
+#endif
+
 tic_t leveltime;
 
 //
@@ -629,6 +633,14 @@ void P_Ticker(boolean run)
 			return;
 		}
 	}
+
+	// heyjoeway: Prevents game pausing when on home menu when in-game pausing isn't allowed
+	// This prevents people from essentially lag switching online matches and potentially fudging record attack times
+	// Also the way this is implemented is probably wicked inefficient (runs every tick) but it's the cleanest 
+	#ifdef __SWITCH__
+	if (P_CanAutoPause()) appletSetFocusHandlingMode(AppletFocusHandlingMode_SuspendHomeSleep);
+	else appletSetFocusHandlingMode(AppletFocusHandlingMode_NoSuspend);
+	#endif
 
 	// Check for pause or menu up in single player
 	if (paused || P_AutoPause())

@@ -1990,8 +1990,8 @@ void CL_UpdateServerList(boolean internetsearch, INT32 room)
 static void M_ConfirmConnect(event_t *ev)
 {
 #ifndef NONET
-	if (ev->type == ev_keydown)
-	{
+	// if (ev->type == ev_keydown)
+	// {
 		if (ev->key == ' ' || ev->key == 'y' || ev->key == KEY_ENTER || ev->key == KEY_JOY1)
 		{
 			if (totalfilesrequestednum > 0)
@@ -2012,7 +2012,7 @@ static void M_ConfirmConnect(event_t *ev)
 			cl_mode = CL_ABORTED;
 			M_ClearMenus(true);
 		}
-	}
+	// }
 #else
 	(void)ev;
 #endif
@@ -2450,6 +2450,12 @@ static boolean CL_ServerConnectionTicker(const char *tmpsave, tic_t *oldtic, tic
 
 		if (gamekeydown[KEY_ESCAPE] || gamekeydown[KEY_JOY1+1] || cl_mode == CL_ABORTED)
 		{
+			#ifdef __SWITCH__
+				// Since Plus is the accept button for the Switch software keyboard, accepting will immediately cancel the connection.
+				// Therefore, ignore this specific button.
+				if (gamekeydown[KEY_JOY1+10]) return false;
+			#endif
+
 			CONS_Printf(M_GetText("Network game synchronization aborted.\n"));
 			M_StartMessage(M_GetText("Network game synchronization aborted.\n\nPress ESC\n"), NULL, MM_NOTHING);
 

@@ -25,6 +25,9 @@
 #define _FILE_OFFSET_BITS 0
 #endif
 
+#endif // HAVE_LIBGME
+
+#ifdef HAVE_ZLIB
 #include <zlib.h>
 #endif // HAVE_ZLIB
 #endif // HAVE_GME
@@ -225,6 +228,7 @@ static const char* get_zlib_error(int zErr)
 {
 	switch (zErr)
 	{
+		#ifdef HAVE_ZLIB
 		case Z_ERRNO:
 			return "Z_ERRNO";
 		case Z_STREAM_ERROR:
@@ -237,6 +241,7 @@ static const char* get_zlib_error(int zErr)
 			return "Z_BUF_ERROR";
 		case Z_VERSION_ERROR:
 			return "Z_VERSION_ERROR";
+		#endif
 		default:
 			return "unknown error";
 	}

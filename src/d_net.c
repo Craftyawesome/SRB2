@@ -82,6 +82,12 @@ const char *(*I_GetBanMask) (size_t ban) = NULL;
 boolean (*I_SetBanAddress) (const char *address, const char *mask) = NULL;
 boolean *bannednode = NULL;
 
+#ifdef __SWITCH__
+#include <switch.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#endif
 
 // network stats
 static tic_t statstarttic;
@@ -1049,6 +1055,8 @@ boolean HSendPacket(INT32 node, boolean reliable, UINT8 acknum, size_t packetlen
 		netbuffer->ackreturn = 0;
 	if (reliable)
 	{
+		// heyjoeway: hack way? hack way!
+		#ifndef __SWITCH__
 		if (I_NetCanSend && !I_NetCanSend())
 		{
 			if (netbuffer->packettype < PT_CANFAIL)
@@ -1057,7 +1065,9 @@ boolean HSendPacket(INT32 node, boolean reliable, UINT8 acknum, size_t packetlen
 			DEBFILE("HSendPacket: Out of bandwidth\n");
 			return false;
 		}
-		else if (!GetFreeAcknum(&netbuffer->ack, false))
+		else
+		#endif
+		if (!GetFreeAcknum(&netbuffer->ack, false))
 			return false;
 	}
 	else

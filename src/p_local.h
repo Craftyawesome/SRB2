@@ -173,6 +173,7 @@ void P_ResetScore(player_t *player);
 #define P_ResetScore(player) player->scoreadd = 0
 #endif
 boolean P_AutoPause(void);
+boolean P_CanAutoPause(void);
 
 void P_DoJumpShield(player_t *player);
 void P_DoBubbleBounce(player_t *player);
