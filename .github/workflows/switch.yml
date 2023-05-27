@@ -9,8 +9,8 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
-    container: devkitpro/devkita64:20220216
+    runs-on: ubuntu-latest
+    container: devkitpro/devkita64
     steps:
     - name: Install 7z/zip
       run: |
