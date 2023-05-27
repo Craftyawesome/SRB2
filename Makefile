@@ -216,7 +216,11 @@ SOURCES = \
 	src/blua/ltm \
 	src/blua/lvm \
 	src/comptime \
-	src/switch/swkbd
+	src/switch/swkbd \
+	src/i_time \
+	src/lua_hudlib_drawlist \
+	src/r_fps \
+	src/hardware/u_list
 
 
 PKGSUFFIX ?= $(SUFFIX)
