@@ -220,7 +220,9 @@ SOURCES = \
 	src/i_time \
 	src/lua_hudlib_drawlist \
 	src/r_fps \
-	src/hardware/u_list
+	src/u_list \
+	src/blua/loslib \
+	src/r_bbox
 
 
 PKGSUFFIX ?= $(SUFFIX)
