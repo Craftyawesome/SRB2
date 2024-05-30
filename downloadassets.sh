@@ -6,7 +6,7 @@ DOWNLOADCMD="curl -Lo"
 cd assets
 rm *.srb *.pk3 *.dta *.wad
 ${DOWNLOADCMD} srb2full.zip ${FULLURL}
-unzip -o -j srb2full.zip "*.srb" "*.pk3" "*.dta" "*.wad" "*.dat"
+unzip -o srb2full.zip "*.srb" "*.pk3" "*.dta" "*.wad" "*.dat" "models/*/*"
 rm srb2full.zip
 
 cd patch
