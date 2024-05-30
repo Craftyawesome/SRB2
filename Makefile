@@ -8,7 +8,7 @@ STATIC		?= 1
 VERBOSE		?= 0
 PROFILE		?= 0
 STRIP		?= strip
-DEFINES		?= -DHAVE_SDL -DHAVE_THREADS -DHAVE_MIXER -DHAVE_ZLIB -DHAVE_CURL -DLOGMESSAGES
+DEFINES		?= -DHAVE_SDL -DHAVE_THREADS -DHAVE_MIXER -DHAVE_ZLIB -DHAVE_CURL -DLOGMESSAGES -DHWRENDER -DHAVE_PNG
 
 CFLAGS		?= -std=c++17
 
@@ -69,8 +69,12 @@ endif
 
 # =============================================================================
 
-CFLAGS += `$(PKGCONFIG) --cflags sdl2 ogg vorbis theora vorbisfile theoradec SDL2_mixer zlib`
-LIBS   += `$(PKGCONFIG) --libs-only-l --libs-only-L sdl2 ogg vorbis theora vorbisfile theoradec SDL2_mixer zlib`
+REQUIRED_LIBS = libcurl sdl2 SDL2_mixer zlib libpng
+
+CFLAGS += $(shell $(PKGCONFIG) --cflags $(REQUIRED_LIBS))
+LIBS += $(shell $(PKGCONFIG) --libs $(REQUIRED_LIBS))
+INCLUDES +=	-I$(LIBNX)/include -I$(PORTLIBS)/include/GLFW -I$(PORTLIBS)/include
+LDFLAGS += -lnx -lnxd
 
 ifeq ($(STATIC),1)
 	CFLAGS += -static
@@ -82,10 +86,25 @@ INCLUDES  += \
 INCLUDES += $(LIBS)
 
 # Main Sources
-SOURCES = \
+SOURCES := \
+	src/hardware/r_opengl/r_opengl \
+	src/hardware/hw_cache \
+	src/hardware/hw_batching \
+	src/hardware/hw_main \
+	src/hardware/hw_md3load \
+	src/hardware/hw_md2 \
+	src/hardware/hw_md2load \
+	src/hardware/hw_main \
+	src/hardware/hw_clip \
+	src/hardware/hw_bsp \
+	src/hardware/hw_model \
+	src/hardware/hw_light \
+	src/hardware/hw_draw \
+	src/hardware/hw3sound \
 	src/sdl/i_net \
 	src/sdl/i_system \
 	src/sdl/i_main \
+	src/sdl/ogl_sdl \
 	src/sdl/i_video \
 	src/sdl/dosstr \
 	src/sdl/endtxt \
