@@ -3,7 +3,7 @@ name: Nintendo Switch
 on:
   workflow_dispatch:
   push:
-    branches: [ switch-port ]
+    branches: [ switch-port, glu-test]
   pull_request:
     branches: [ switch-port ]
 
@@ -12,10 +12,20 @@ jobs:
     runs-on: ubuntu-latest
     container: devkitpro/devkita64
     steps:
-    - name: Install 7z/zip
+    - name: Install deps
       run: |
         apt-get update
-        apt-get install -y zip p7zip-full
+        apt-get install -y zip p7zip-full build-essential meson file zstd
+        useradd builduser -m
+        passwd -d builduser
+        cd /home/builduser
+        printf 'builduser ALL=(ALL) ALL\n' | tee -a /etc/sudoers
+        wget https://github.com/devkitPro/pacman-packages/raw/master/switch/glu/glu-9.0.3-meson-enable-egl-arg.patch
+        wget https://github.com/devkitPro/pacman-packages/raw/master/switch/glu/PKGBUILD
+        wget https://github.com/devkitPro/pacman-packages/raw/master/switch/glu/LICENSE
+        dkp-pacman -S dkp-meson-scripts --noconfirm --needed
+        sudo -E -u builduser bash -c 'sudo chmod 777 . -R && dkp-makepkg -s -i -L --noconfirm'
+        rsync -a ./pkg/switch-glu/opt/devkitpro/ /opt/devkitpro/
     - name: Checkout repo
       uses: actions/checkout@v1
     - name: Download assets
