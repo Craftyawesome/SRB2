@@ -69,11 +69,11 @@ endif
 
 # =============================================================================
 
-REQUIRED_LIBS = libcurl sdl2 SDL2_mixer zlib libpng
+REQUIRED_LIBS = libcurl sdl2 SDL2_mixer zlib libpng glu
 
 CFLAGS += $(shell $(PKGCONFIG) --cflags $(REQUIRED_LIBS))
 LIBS += $(shell $(PKGCONFIG) --libs $(REQUIRED_LIBS))
-INCLUDES +=	-I$(LIBNX)/include -I$(PORTLIBS)/include/GLFW -I$(PORTLIBS)/include
+INCLUDES +=	-I$(LIBNX)/include -I$(PORTLIBS)/include -I$(PORTLIBS)/include/SDL2 -I$(PORTLIBS)/include/GLAD -I$(PORTLIBS)/include/GLFW -I$(PORTLIBS)/include/GL
 LDFLAGS += -lnx -lnxd
 
 ifeq ($(STATIC),1)

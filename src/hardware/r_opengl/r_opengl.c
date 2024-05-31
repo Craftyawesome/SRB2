@@ -23,6 +23,7 @@
 #include <math.h>
 #include "../../r_local.h" // For rendertimefrac, used for the leveltime shader uniform
 #include "r_opengl.h"
+#include <GL/glu.h>
 #include "r_vbo.h"
 
 #if defined (HWRENDER) && !defined (NOROPENGL)
@@ -396,8 +397,9 @@ typedef void (APIENTRY * PFNglCopyTexSubImage2D) (GLenum target, GLint level, GL
 static PFNglCopyTexSubImage2D pglCopyTexSubImage2D;
 #endif
 /* GLU functions */
-typedef GLint (APIENTRY * PFNgluBuild2DMipmaps) (GLenum target, GLint internalFormat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void *data);
-static PFNgluBuild2DMipmaps pgluBuild2DMipmaps;
+//typedef GLint (APIENTRY * PFNgluBuild2DMipmaps) (GLenum target, GLint internalFormat, GLsizei width, GLsizei height, GLenum format, GLenum type, const void *data);
+//static PFNgluBuild2DMipmaps pgluBuild2DMipmaps;
+#define pgluBuild2DMipmaps gluBuild2DMipmaps
 
 /* 1.3 functions for multitexturing */
 typedef void (APIENTRY *PFNglActiveTexture) (GLenum);
@@ -906,7 +908,7 @@ void SetupGLFunc4(void)
 #endif
 
 	// GLU
-	pgluBuild2DMipmaps = GetGLFunc("gluBuild2DMipmaps");
+	//pgluBuild2DMipmaps = GetGLFunc("gluBuild2DMipmaps");
 }
 
 EXPORT boolean HWRAPI(CompileShaders) (void)
