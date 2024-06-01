@@ -11894,17 +11894,17 @@ static void M_ConnectIP(INT32 choice)
 
 #ifdef __SWITCH__
 
-SwkbdChangedStringCb M_HandleConnectIP_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
+void M_HandleConnectIP_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
 	SDL_strlcpy(setupm_ip, str, sizeof(setupm_ip));
 }
 
-SwkbdDecidedEnterCb M_HandleConnectIP_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg) {
+void M_HandleConnectIP_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg) {
 	S_StartSound(NULL,sfx_menu1); // Tails
 	currentMenu->lastOn = itemOn;
 	M_ConnectIP(1);
 }
 
-SwkbdMovedCursorCb M_HandleConnectIP_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg) {
+void M_HandleConnectIP_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg) {
 	swkbdInlineSetCursorPos(&switch_kbdinline, strlen(setupm_ip)); // Place swkbd cursor at string end
 }
 

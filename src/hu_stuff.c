@@ -1028,14 +1028,6 @@ static void HU_sendChatMessage(void)
 	return;
 }
 
-//
-//
-static void HU_queueChatChar(char c)
-{
-	// send automaticly the message (no more chat char)
-	if (c == KEY_ENTER) CHAT_Send();
-}
-
 #endif
 
 void HU_clearChatChars(void)
@@ -1057,7 +1049,7 @@ void CHAT_Close() {
 }
 
 void CHAT_SetText(const char* str) {
-	SDL_strlcpy(w_chat, str, HU_MAXMSGLEN);
+	strlcpy(w_chat, str, HU_MAXMSGLEN);
 }
 
 void CHAT_SendText(const char* str) {
@@ -1070,16 +1062,16 @@ void CHAT_SendText(const char* str) {
 
 #ifdef __SWITCH__
 
-SwkbdChangedStringCb CHAT_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
+void CHAT_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
 	CHAT_SetText(str);
 	c_input = arg->cursorPos;
 }
 
-SwkbdMovedCursorCb CHAT_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg) {
+void CHAT_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg) {
 	c_input = arg->cursorPos;
 }
 
-SwkbdDecidedEnterCb CHAT_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg) {
+void CHAT_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg) {
 	CHAT_SendText(str);
 }
 

@@ -10,8 +10,6 @@ PROFILE		?= 0
 STRIP		?= strip
 DEFINES		?= -DHAVE_SDL -DHAVE_THREADS -DHAVE_MIXER -DHAVE_ZLIB -DHAVE_CURL -DLOGMESSAGES -DHWRENDER -DHAVE_PNG
 
-CFLAGS		?= -std=c++17
-
 # =============================================================================
 # Detect default platform if not explicitly specified
 # =============================================================================

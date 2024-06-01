@@ -133,9 +133,9 @@ void CHAT_Close();
 void CHAT_SetText(const char* str);
 void CHAT_SendText(const char* str);
 #ifdef __SWITCH__
-SwkbdChangedStringCb CHAT_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg);
-SwkbdMovedCursorCb CHAT_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg);
-SwkbdDecidedEnterCb CHAT_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg);
+void CHAT_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg);
+void CHAT_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg);
+void CHAT_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg);
 #endif
 
 // Demo playback info

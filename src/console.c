@@ -916,20 +916,20 @@ static void CON_InputDelChar(void)
 
 #ifdef __SWITCH__
 
-SwkbdChangedStringCb CON_Responder_SWITCH_SwkbdChanged_cb(const char* str, SwkbdChangedStringArg* arg) {
+void CON_Responder_SWITCH_SwkbdChanged_cb(const char* str, SwkbdChangedStringArg* arg) {
 	CON_InputSetString(str);
 	input_cur = arg->cursorPos;
 }
 
-SwkbdMovedCursorCb CON_Responder_SWITCH_SwkbdMovedCursor_cb(const char* str, SwkbdMovedCursorArg* arg) {
+void CON_Responder_SWITCH_SwkbdMovedCursor_cb(const char* str, SwkbdMovedCursorArg* arg) {
 	input_cur = arg->cursorPos;
 }
 
-SwkbdDecidedEnterCb CON_Responder_SWITCH_SwkbdDecidedEnter_cb(const char* str, SwkbdDecidedEnterArg* arg) {
+void CON_Responder_SWITCH_SwkbdDecidedEnter_cb(const char* str, SwkbdDecidedEnterArg* arg) {
 	CON_InputSetString(str);
 
 	if (!input_len)
-		return true;
+		return;
 
 	// push the command
 	COM_BufAddText(inputlines[inputline]);
