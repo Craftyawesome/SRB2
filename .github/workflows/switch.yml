@@ -23,7 +23,7 @@ jobs:
         wget https://github.com/devkitPro/pacman-packages/raw/master/switch/glu/glu-9.0.3-meson-enable-egl-arg.patch
         wget https://github.com/devkitPro/pacman-packages/raw/master/switch/glu/PKGBUILD
         wget https://github.com/devkitPro/pacman-packages/raw/master/switch/glu/LICENSE
-        dkp-pacman -S dkp-meson-scripts --noconfirm --needed
+        dkp-pacman -S dkp-meson-scripts switch-glm switch-mesa --noconfirm --needed
         sudo -E -u builduser bash -c 'sudo chmod 777 . -R && dkp-makepkg -s -i -L --noconfirm'
         rsync -a ./pkg/switch-glu/opt/devkitpro/ /opt/devkitpro/
     - name: Checkout repo
