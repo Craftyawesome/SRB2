@@ -69,7 +69,7 @@ endif
 
 # =============================================================================
 
-REQUIRED_LIBS = libcurl sdl2 SDL2_mixer zlib libpng glu
+REQUIRED_LIBS = libcurl sdl2 SDL2_mixer zlib libpng libglad glu
 
 CFLAGS += $(shell $(PKGCONFIG) --cflags $(REQUIRED_LIBS))
 LIBS += $(shell $(PKGCONFIG) --libs $(REQUIRED_LIBS))
