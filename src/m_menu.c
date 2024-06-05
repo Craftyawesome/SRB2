@@ -1313,7 +1313,9 @@ static menuitem_t OP_VideoOptionsMenu[] =
 	{IT_HEADER, NULL, "Screen", NULL, 0},
 	{IT_STRING | IT_CALL,  NULL, "Set Resolution...",       M_VideoModeMenu,          6},
 
-#if defined (__unix__) || defined (UNIXCOMMON) || defined (HAVE_SDL)
+#ifdef __SWITCH__
+	{IT_STRING|IT_CVAR,      NULL, "Auto Resolution",           &cv_fullscreen,      11},
+#elif defined (__unix__) || defined (UNIXCOMMON) || defined (HAVE_SDL)
 	{IT_STRING|IT_CVAR,      NULL, "Fullscreen (F11)",          &cv_fullscreen,      11},
 #endif
 	{IT_STRING | IT_CVAR, NULL, "Vertical Sync",                &cv_vidwait,         16},
@@ -13771,6 +13773,11 @@ static void M_DrawMainVideoMenu(void)
 // Draw the video modes list, a-la-Quake
 static void M_DrawVideoMode(void)
 {
+	#ifdef __SWITCH__
+	if (cv_fullscreen.value) { // Actually auto res
+		M_SetupNextMenu(currentMenu->prevMenu);
+	}
+	#endif
 	INT32 i, j, row, col;
 
 	// draw title

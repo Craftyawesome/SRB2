@@ -33,6 +33,9 @@
 #ifdef __SWITCH__
 #include <switch.h>
 bool lastCanAutoPause = true;
+AppletOperationMode opMode = AppletOperationMode_Handheld;
+AppletOperationMode lastOpMode = AppletOperationMode_Handheld;
+rendermode_t lastRendermode = render_soft;
 #endif
 
 #ifdef PARANOIA
@@ -735,6 +738,24 @@ void P_Ticker(boolean run)
 		if (P_CanAutoPause()) appletSetFocusHandlingMode(AppletFocusHandlingMode_SuspendHomeSleep);
 		else appletSetFocusHandlingMode(AppletFocusHandlingMode_NoSuspend);
 		lastCanAutoPause = P_CanAutoPause();
+	}
+	
+	// Handle auto resolution (variable misnamed)
+	if (cv_fullscreen.value) {
+		opMode = appletGetOperationMode();
+		if (lastRendermode != rendermode || lastOpMode != opMode) {
+			if (rendermode == render_soft)
+				setmodeneeded = VID_GetModeForSize(800, 450)+1;
+			else {
+				if (opMode == AppletOperationMode_Handheld) {
+					setmodeneeded = VID_GetModeForSize(1280, 720)+1;
+				} else {
+					setmodeneeded = VID_GetModeForSize(1920, 1080)+1;
+				}
+			}
+			lastRendermode = rendermode;
+			lastOpMode = opMode;
+		}
 	}
 	#endif
 
