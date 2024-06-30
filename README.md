@@ -26,9 +26,10 @@ Extract the contents of the update patch to the root of your SD card. Overwrite 
 - Full software keyboard support
 
 ## Notes
-- I've included a config.cfg that sets the resolution to 800x450 by default. It doesn't really do anything else so you can leave it out if you'd like.
-- The game takes a bit to boot. A faster SD card may help with this.
-- Without a config file, the game's default resolution is 320x200. I recommend setting it to 800x450 for the best balance of performance and visuals.
+- The game takes a bit to boot. A faster SD card or higher CPU clock may help with this.
+- The game defaults to software renderer. Consider changing to OpenGL. Performance is similar at low resolutions and better at high resolutions.
+- The automatic resolution option runs at 800x450 on software, 1280x720 OpenGL handheld, 1920x1080 OpenGL docked. This can be disabled.
+- The game is CPU bottlenecked even on OpenGL. Models are an additional small performance loss.
 - The game continues to run while on the Switch's home screen when you are unable to pause to prevent lag-switching.
 - If you want to play the game with mouse/keyboard, you'll have to bind most of the buttons yourself.
 - All button bindings are set "correctly" out-of-the-box. You might want to tweak them to your liking though.
