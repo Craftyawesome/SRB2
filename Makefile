@@ -52,7 +52,7 @@ ifeq ($(DEBUG),1)
 	CFLAGS += -g
 	STRIP = :
 else
-	CFLAGS += -O3 -flto
+	CFLAGS += -O3 -flto -flto-partition=one
 	DEFINES += -DNDEBUG
 endif
 
