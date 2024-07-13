@@ -18,6 +18,9 @@ all_systems:=\
 	LINUX\
 	FREEBSD\
 	SDL\
+	SWITCH\
+
+ifndef SWITCH
 
 # check for user specified system
 ifeq (,$(filter $(all_systems),$(.VARIABLES)))
@@ -53,6 +56,8 @@ $(call Print,Detected $(system) ($(new_system))...)
 $(new_system):=1
 
 endif
+endif
+
 endif
 
 # This must have high to low order.

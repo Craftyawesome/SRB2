@@ -22,10 +22,18 @@
 // keys (mousebuttons and joybuttons becomes keys)
 #define NUMKEYS 256
 
+
+#if defined (__SWITCH__)
+#define MOUSEBUTTONS 3
+#define JOYBUTTONS   16 // 16 buttons
+#define JOYHATS      0  // 0 hat
+#define JOYAXISSET   2  // 2 Sets of 2 axises
+#else
 #define MOUSEBUTTONS 8
 #define JOYBUTTONS   32 // 32 buttons
 #define JOYHATS      4  // 4 hats
 #define JOYAXISSET   4  // 4 Sets of 2 axises
+#endif
 
 //
 // mouse and joystick buttons are handled as 'virtual' keys

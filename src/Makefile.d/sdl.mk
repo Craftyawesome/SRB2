@@ -23,6 +23,10 @@ opts+=-DDIRECTFULLSCREEN -DHAVE_SDL
 #include sdl/MakeCYG.cfg
 #endif #ifdef CYGWIN32
 
+ifdef SWITCH
+include sdl/SRB2Switch/Makefile.cfg
+endif
+
 ifndef NOHW
 sources+=sdl/ogl_sdl.c
 endif

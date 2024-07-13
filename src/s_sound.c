@@ -63,6 +63,8 @@ static boolean S_CheckQueue(void);
 
 #ifdef _WINDOWS
 consvar_t cv_samplerate = CVAR_INIT ("samplerate", "44100", 0, CV_Unsigned, NULL); //Alam: For easy hacking?
+#elif defined(__SWITCH__)
+consvar_t cv_samplerate = CVAR_INIT ("samplerate", "48000", 0, CV_Unsigned, NULL); //Alam: For easy hacking?
 #else
 consvar_t cv_samplerate = CVAR_INIT ("samplerate", "22050", 0, CV_Unsigned, NULL); //Alam: For easy hacking?
 #endif

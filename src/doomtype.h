@@ -97,7 +97,7 @@ typedef long ssize_t;
 	#define strncasecmp             strnicmp
 	#define strcasecmp              strcmpi
 #endif
-#if defined (__unix__) || defined (__APPLE__) || defined (UNIXCOMMON)
+#if defined (__unix__) || defined (__APPLE__) || defined (UNIXCOMMON) || defined (__SWITCH__)
 	#undef stricmp
 	#define stricmp(x,y) strcasecmp(x,y)
 	#undef strnicmp
@@ -125,7 +125,7 @@ char *strcasestr(const char *in, const char *what);
 	#endif
 #endif //macintosh
 
-#if defined (_WIN32) || defined (__HAIKU__)
+#if defined (_WIN32) || defined (__HAIKU__) || defined(__SWITCH__)
 #define HAVE_DOSSTR_FUNCS
 #endif
 
@@ -157,7 +157,10 @@ size_t strlcpy(char *dst, const char *src, size_t siz);
 	#define __BYTEBOOL__
 
 	//faB: clean that up !!
-	#if defined( _MSC_VER)  && (_MSC_VER >= 1800) // MSVC 2013 and forward
+	#if defined(__SWITCH__) // defined(__GNUC__)?
+		#include <stdbool.h>  //_bool_true_false_are_defined?
+		#define boolean bool
+	#elif defined( _MSC_VER)  && (_MSC_VER >= 1800) // MSVC 2013 and forward
 		#include "stdbool.h"
 	#elif defined (_WIN32)
 		#define false   FALSE           // use windows types

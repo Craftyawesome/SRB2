@@ -29,6 +29,10 @@
 #include <malloc.h>
 #endif
 
+#ifdef __SWITCH__
+#include <switch.h>
+#include "switch/swkbd.h"
+#endif
 #include <time.h>
 
 #include "doomdef.h"
@@ -748,6 +752,10 @@ void D_SRB2Loop(void)
 		V_DrawScaledPatch(0, 0, 0, W_CachePatchNum(gstartuplumpnum, PU_PATCH));
 	}
 
+	#ifdef __SWITCH__
+	appletSetFocusHandlingMode(AppletFocusHandlingMode_SuspendHomeSleep);
+	#endif
+
 	for (;;)
 	{
 		if (lastwipetic)
@@ -827,6 +835,15 @@ void D_SRB2Loop(void)
 #endif
 
 		LUA_Step();
+		
+	#ifdef __SWITCH__
+	Switch_Keyboard_Update();
+
+	if(!appletMainLoop()) {
+		I_Quit();
+		M_QuitResponse('y');
+	}
+	#endif
 	}
 }
 
@@ -1218,7 +1235,7 @@ void D_SRB2Main(void)
 
 		if (!userhome)
 		{
-#if (defined (__unix__) || defined (__APPLE__) || defined (UNIXCOMMON)) && !defined (__CYGWIN__)
+#if (defined (__unix__) || defined (__APPLE__) || defined (UNIXCOMMON)) && !defined (__CYGWIN__) && !defined(__SWITCH__)
 			I_Error("Please set $HOME to your home directory\n");
 #else
 			if (dedicated)

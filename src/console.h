@@ -14,6 +14,10 @@
 #include "command.h"
 #include "i_threads.h"
 
+#ifdef __SWITCH__
+#include "switch/swkbd.h"
+#endif
+
 void CON_Init(void);
 
 void CON_StartRefresh(void);
@@ -67,3 +71,9 @@ void CON_ToggleOff(void);
 boolean CON_Ready(void);
 
 void CON_LogMessage(const char *msg);
+
+#ifdef __SWITCH__
+void CON_Responder_SWITCH_SwkbdChanged_cb(const char* str, SwkbdChangedStringArg* arg);
+void CON_Responder_SWITCH_SwkbdMovedCursor_cb(const char* str, SwkbdMovedCursorArg* arg);
+void CON_Responder_SWITCH_SwkbdDecidedEnter_cb(const char* str, SwkbdDecidedEnterArg* arg);
+#endif

@@ -409,6 +409,29 @@ consvar_t cv_cam_lockonboss[2] = {
 	CVAR_INIT ("cam2_lockaimassist", "Full", CV_SAVE, lockedassist_cons_t, NULL),
 };
 
+#if defined (__SWITCH__)
+consvar_t cv_turnaxis =			CVAR_INIT ("joyaxis_turn",			"Z-Axis", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_moveaxis =			CVAR_INIT ("joyaxis_move",			"Y-Axis", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_sideaxis =			CVAR_INIT ("joyaxis_side",			"X-Axis", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_lookaxis =			CVAR_INIT ("joyaxis_look",			"X-Rudder-", 	CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_jumpaxis =			CVAR_INIT ("joyaxis_jump",			"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_spinaxis =			CVAR_INIT ("joyaxis_spin",			"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_fireaxis =			CVAR_INIT ("joyaxis_fire",			"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_firenaxis =		CVAR_INIT ("joyaxis_firenormal",	"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
+consvar_t cv_deadzone = 		CVAR_INIT ("joy_deadzone",			"0.125",		CV_FLOAT|CV_SAVE,	zerotoone_cons_t, 	NULL);
+consvar_t cv_digitaldeadzone =	CVAR_INIT ("joy_digdeadzone",		"0.25",			CV_FLOAT|CV_SAVE,	zerotoone_cons_t, 	NULL);
+
+consvar_t cv_turnaxis2 =		CVAR_INIT ("joyaxis2_turn",			"Z-Axis", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_moveaxis2 =		CVAR_INIT ("joyaxis2_move",			"Y-Axis", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_sideaxis2 =		CVAR_INIT ("joyaxis2_side",			"X-Axis", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_lookaxis2 =		CVAR_INIT ("joyaxis2_look",			"X-Rudder-", 	CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_jumpaxis2 =		CVAR_INIT ("joyaxis2_jump",			"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_spinaxis2 =		CVAR_INIT ("joyaxis2_spin",			"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_fireaxis2 =		CVAR_INIT ("joyaxis2_fire",			"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_firenaxis2 =		CVAR_INIT ("joyaxis2_firenormal",	"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
+consvar_t cv_deadzone2 = 		CVAR_INIT ("joy_deadzone2", 		"0.125",		CV_FLOAT|CV_SAVE, 	zerotoone_cons_t,	NULL);
+consvar_t cv_digitaldeadzone2 = CVAR_INIT ("joy_digdeadzone2", 		"0.25",			CV_FLOAT|CV_SAVE, 	zerotoone_cons_t,	NULL);
+#else
 consvar_t cv_moveaxis = CVAR_INIT ("joyaxis_move", "Y-Axis", CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_sideaxis = CVAR_INIT ("joyaxis_side", "X-Axis", CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_lookaxis = CVAR_INIT ("joyaxis_look", "Y-Rudder-", CV_SAVE, joyaxis_cons_t, NULL);
@@ -430,6 +453,7 @@ consvar_t cv_fireaxis2 = CVAR_INIT ("joyaxis2_fire", "Z-Rudder", CV_SAVE, joyaxi
 consvar_t cv_firenaxis2 = CVAR_INIT ("joyaxis2_firenormal", "Z-Axis", CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_deadzone2 = CVAR_INIT ("joy_deadzone2", "0.125", CV_FLOAT|CV_SAVE, zerotoone_cons_t, NULL);
 consvar_t cv_digitaldeadzone2 = CVAR_INIT ("joy_digdeadzone2", "0.25", CV_FLOAT|CV_SAVE, zerotoone_cons_t, NULL);
+#endif
 
 player_t *seenplayer; // player we're aiming at right now
 

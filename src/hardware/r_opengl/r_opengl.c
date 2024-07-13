@@ -2456,7 +2456,9 @@ EXPORT void HWRAPI(SetSpecialState) (hwdspecialstate_t IdState, INT32 Value)
 			if (!pgluBuild2DMipmaps)
 			{
 				MipMap = GL_FALSE;
-				min_filter = GL_LINEAR;
+				if (min_filter == GL_LINEAR_MIPMAP_LINEAR) {
+					min_filter = GL_LINEAR;
+				}
 			}
 			Flush(); //??? if we want to change filter mode by texture, remove this
 			break;

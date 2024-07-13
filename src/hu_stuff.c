@@ -990,6 +990,7 @@ static void HU_sendChatMessage(void)
 		buf[1] = 0; // flags
 		SendNetXCmd(XD_SAY, buf, 2 + strlen(&buf[2]) + 1);
 	}
+	return;
 }
 
 #endif
@@ -1001,6 +1002,63 @@ void HU_clearChatChars(void)
 	c_input = 0;
 
 	I_UpdateMouseGrab();
+}
+
+void CHAT_Close() {
+	#ifdef __SWITCH__
+		Switch_Keyboard_Close();
+	#endif
+
+	chat_on = false;
+	c_input = 0; // reset input cursor
+}
+
+void CHAT_SetText(const char* str) {
+	strlcpy(w_chat, str, HU_MAXMSGLEN);
+}
+
+void CHAT_SendText(const char* str) {
+	CHAT_SetText(str);
+	HU_sendChatMessage();
+	CHAT_Close();
+	chat_scrollmedown = true; // you hit enter, so you might wanna autoscroll to see what you just sent. :)
+}
+
+
+#ifdef __SWITCH__
+
+void CHAT_Switch_SwkbdChanged(const char* str, SwkbdChangedStringArg* arg) {
+	CHAT_SetText(str);
+	c_input = arg->cursorPos;
+}
+
+void CHAT_Switch_SwkbdMovedCursor(const char* str, SwkbdMovedCursorArg* arg) {
+	c_input = arg->cursorPos;
+}
+
+void CHAT_Switch_SwkbdDecidedEnter(const char* str, SwkbdDecidedEnterArg* arg) {
+	CHAT_SendText(str);
+}
+
+#endif
+
+void CHAT_Open(boolean teamtalkArg) {
+	// This needs to come first for some reason, otherwise things get wacky
+	#ifdef __SWITCH__
+		swkbdInlineSetChangedStringCallback(&switch_kbdinline, CHAT_Switch_SwkbdChanged);
+		swkbdInlineSetMovedCursorCallback(&switch_kbdinline, CHAT_Switch_SwkbdMovedCursor);
+		swkbdInlineSetDecidedEnterCallback(&switch_kbdinline, CHAT_Switch_SwkbdDecidedEnter);
+		swkbdInlineSetInputText(&switch_kbdinline, "");
+		swkbdInlineSetCursorPos(&switch_kbdinline, 0);
+		swkbdInlineSetKeytopTranslate(&switch_kbdinline, 0, 0.445); // Place kb above chatbox
+		Switch_Keyboard_Open();
+	#endif
+
+	chat_on = true;
+	w_chat[0] = 0;
+	teamtalk = teamtalkArg;
+	chat_scrollmedown = true;
+	typelines = 1;
 }
 
 //
@@ -1042,25 +1100,27 @@ boolean HU_Responder(event_t *ev)
 
 	if (!chat_on)
 	{
+		boolean talkKeyPressed = (
+			c == gamecontrol[GC_TALKKEY][0] ||
+			c == gamecontrol[GC_TALKKEY][1]
+		); // Check both binds
+
+		boolean teamKeyPressed = (
+			c == gamecontrol[GC_TEAMKEY][0] ||
+			c == gamecontrol[GC_TEAMKEY][1]
+		); // Check both binds
+
 		// enter chat mode
 		if ((ev->key == gamecontrol[GC_TALKKEY][0] || ev->key == gamecontrol[GC_TALKKEY][1])
 			&& netgame && !OLD_MUTE) // check for old chat mute, still let the players open the chat incase they want to scroll otherwise.
 		{
-			chat_on = true;
-			w_chat[0] = 0;
-			teamtalk = false;
-			chat_scrollmedown = true;
-			typelines = 1;
+			CHAT_Open(false);
 			return true;
 		}
 		if ((ev->key == gamecontrol[GC_TEAMKEY][0] || ev->key == gamecontrol[GC_TEAMKEY][1])
 			&& netgame && !OLD_MUTE)
 		{
-			chat_on = true;
-			w_chat[0] = 0;
-			teamtalk = G_GametypeHasTeams(); // Don't teamtalk if we don't have teams.
-			chat_scrollmedown = true;
-			typelines = 1;
+			CHAT_Open(G_GametypeHasTeams()); // Don't teamtalk if we don't have teams.
 			return true;
 		}
 	}
@@ -1119,8 +1179,7 @@ boolean HU_Responder(event_t *ev)
 			if (!CHAT_MUTE)
 				HU_sendChatMessage();
 
-			chat_on = false;
-			c_input = 0; // reset input cursor
+			CHAT_Close();
 			chat_scrollmedown = true; // you hit enter, so you might wanna autoscroll to see what you just sent. :)
 			I_UpdateMouseGrab();
 		}
