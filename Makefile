@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := all
 
-NAME		=  srb2switch22
+NAME		=  SRB2-Persona
 SUFFIX		= 
 PKGCONFIG	=  pkg-config
 DEBUG		?= 0
@@ -235,12 +235,7 @@ SOURCES := \
 	src/blua/lvm \
 	src/comptime \
 	src/switch/swkbd \
-	src/i_time \
-	src/lua_hudlib_drawlist \
-	src/r_fps \
-	src/u_list \
-	src/blua/loslib \
-	src/r_bbox
+	src/hardware/u_list
 
 
 PKGSUFFIX ?= $(SUFFIX)
