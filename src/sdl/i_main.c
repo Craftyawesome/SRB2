@@ -256,6 +256,9 @@ extern void userAppInit()
 	appletInitializeGamePlayRecording();
 	Switch_Keyboard_Init();
 
+	if (access("srb2.pk3", F_OK) != 0)
+		chdir("srb2switch22/");
+
 	#ifdef ENABLE_NXLINK
 	initNxLink();
 	#else

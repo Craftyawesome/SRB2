@@ -65,8 +65,8 @@ static CV_PossibleValue_t scr_depth_cons_t[] = {{8, "8 bits"}, {16, "16 bits"}, 
 
 //added : 03-02-98: default screen mode, as loaded/saved in config
 #if defined(__SWITCH__)
-consvar_t cv_scr_width = CVAR_INIT ("scr_width", "320", CV_SAVE, CV_Unsigned, NULL);
-consvar_t cv_scr_height = CVAR_INIT ("scr_height", "200", CV_SAVE, CV_Unsigned, NULL);
+consvar_t cv_scr_width = CVAR_INIT ("scr_width", "800", CV_SAVE, CV_Unsigned, NULL);
+consvar_t cv_scr_height = CVAR_INIT ("scr_height", "450", CV_SAVE, CV_Unsigned, NULL);
 consvar_t cv_scr_depth = CVAR_INIT ("scr_depth", "32 bits", CV_SAVE, scr_depth_cons_t, NULL);
 #else
 consvar_t cv_scr_width = CVAR_INIT ("scr_width", "1280", CV_SAVE, CV_Unsigned, NULL);
