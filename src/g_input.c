@@ -719,19 +719,19 @@ void G_DefineDefaultControls(void)
 
 	for (i = 1; i < num_gamecontrolschemes; i++) // skip gcs_custom (0)
 	{
-		gamecontroldefault[i][GC_JUMP       ][0] = KEY_JOY1+1;  //B
+		gamecontroldefault[i][GC_JUMP       ][0] = KEY_JOY1+0;  //A
 		gamecontroldefault[i][GC_JUMP       ][1] = KEY_JOY1+7;  //R
-		gamecontroldefault[i][GC_SPIN       ][0] = KEY_JOY1+3;  //Y
+		gamecontroldefault[i][GC_SPIN       ][0] = KEY_JOY1+1;  //B
 		gamecontroldefault[i][GC_SPIN       ][1] = KEY_JOY1+6;  //L
 		gamecontroldefault[i][GC_TURNRIGHT  ][0] = KEY_JOY1+9;  //ZR
 		gamecontroldefault[i][GC_TURNLEFT   ][0] = KEY_JOY1+8;  //ZL
 		gamecontroldefault[i][GC_CENTERVIEW ][0] = KEY_JOY1+5;  //stick R
-		gamecontroldefault[i][GC_SCORES     ][0] = KEY_JOY1+13; //UP
-		gamecontroldefault[i][GC_TOSSFLAG   ][0] = KEY_JOY1+15; //DOWN
-		gamecontroldefault[i][GC_WEAPONPREV ][0] = KEY_JOY1+12; //LEFT
-		gamecontroldefault[i][GC_WEAPONNEXT ][0] = KEY_JOY1+14; //RIGHT
+		//gamecontroldefault[i][GC_SCORES     ][0] = KEY_JOY1+13; //UP
+		//gamecontroldefault[i][GC_TOSSFLAG   ][0] = KEY_JOY1+15; //DOWN
+		//gamecontroldefault[i][GC_WEAPONPREV ][0] = KEY_JOY1+12; //LEFT
+		//gamecontroldefault[i][GC_WEAPONNEXT ][0] = KEY_JOY1+14; //RIGHT
 		gamecontroldefault[i][GC_FIRE       ][0] = KEY_JOY1+2;  //X
-		gamecontroldefault[i][GC_FIRENORMAL ][0] = KEY_JOY1+0;  //A
+		gamecontroldefault[i][GC_FIRENORMAL ][0] = KEY_JOY1+3;  //Y
 		gamecontroldefault[i][GC_PAUSE      ][0] = KEY_JOY1+10; //Plus
 		gamecontroldefault[i][GC_SYSTEMMENU ][0] = KEY_JOY1+11; //Minus
 	}

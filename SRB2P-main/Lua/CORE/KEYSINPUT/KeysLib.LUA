@@ -64,9 +64,9 @@ rawset(_G, "KEY_ARROWR", 235)	--0x80 + 107
 rawset(_G, "KEY_ARROWD", 238)	--0x80 + 110
 -- why these are not right next to each other in keycodes is beyond me
 
-local JOYBUTTONS = 32
-local MOUSEBUTTONS = 8
-local JOYHATS = 4
+local JOYBUTTONS = 16
+local MOUSEBUTTONS = 3
+local JOYHATS = 0
 
 -- NUMKEYS is 256 in source
 -- KEY_MOUSE1 is NUMKEYS
@@ -76,7 +76,7 @@ rawset(_G, "KEY_MOUSE1", 256)
 -- KEY_JOY1 is KEY_MOUSE1 + MOUSEBUTTONS	(?????)
 -- in short, KEY_JOY1 is 256+8 = 264
 -- joy goes from joy1 to joy32, so we'll use KEY_JOY1 + (number)
-rawset(_G, "KEY_JOY1", 264)
+rawset(_G, "KEY_JOY1", 259)
 -- dbljoy sucks and you should never use it.
 
 -- with that logic, hat1 is KEY_JOY1 + JOYBUTTONS
@@ -232,14 +232,13 @@ end)
 
 -- remaps joypad / mouse events to keyboard events for the menu to understand
 rawset(_G, "SYS_menuInput", function(event)
-
-	if event == KEY_HAT1
+	if event == KEY_JOY1+13
 		return KEY_ARROWU
-	elseif event == KEY_HAT1+1	--HAT2
+	elseif event == KEY_JOY1+15
 		return KEY_ARROWD
-	elseif event == KEY_HAT1+2 -- HAT3
+	elseif event == KEY_JOY1+12
 		return KEY_ARROWL
-	elseif event == KEY_HAT1+3 -- HAT4
+	elseif event == KEY_JOY1+14
 		return KEY_ARROWR
 	elseif event == KEY_JOY1
 	or event == KEY_MOUSE1	-- mouse buttons are swapped, somehow

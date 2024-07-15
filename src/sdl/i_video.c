@@ -174,7 +174,6 @@ static const char *fallback_resolution_name = "Fallback";
 		{ 640, 360},
 		{ 320, 240}, // 1.33,1.00
 		{ 320, 200}, // 1.60,1.00
-		{ 320, 180},
 	};
 #else
 
