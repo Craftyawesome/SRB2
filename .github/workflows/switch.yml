@@ -26,4 +26,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: nro
-        path: bin/Switch/srb2switch22.nro
+        path: bin/Switch/SRB2-Persona.nro
