@@ -727,7 +727,7 @@ void G_DefineDefaultControls(void)
 		gamecontroldefault[i][GC_TURNLEFT   ][0] = KEY_JOY1+8;  //ZL
 		gamecontroldefault[i][GC_CENTERVIEW ][0] = KEY_JOY1+5;  //stick R
 		//gamecontroldefault[i][GC_SCORES     ][0] = KEY_JOY1+13; //UP
-		//gamecontroldefault[i][GC_TOSSFLAG   ][0] = KEY_JOY1+15; //DOWN
+		gamecontroldefault[i][GC_TOSSFLAG   ][0] = KEY_JOY1+2; //X
 		//gamecontroldefault[i][GC_WEAPONPREV ][0] = KEY_JOY1+12; //LEFT
 		//gamecontroldefault[i][GC_WEAPONNEXT ][0] = KEY_JOY1+14; //RIGHT
 		gamecontroldefault[i][GC_FIRE       ][0] = KEY_JOY1+2;  //X
