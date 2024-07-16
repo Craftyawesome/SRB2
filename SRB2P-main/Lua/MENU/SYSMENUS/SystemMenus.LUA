@@ -268,6 +268,7 @@ local function mm_hostNetGame()
 end
 
 local function mm_joinNetGame(text)
+	text = GetText("IP", text)
 	-- trim spaces:
 	text = string.gsub(text, " ", "")
 	if not #text

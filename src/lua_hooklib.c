@@ -27,6 +27,10 @@
 #include "d_netcmd.h" // for cv_perfstats
 #include "i_system.h" // I_GetPreciseTime
 
+#ifdef __SWITCH__
+#include "switch/swkbd.h"
+#endif
+
 /* =========================================================================
                                   ABSTRACTION
    ========================================================================= */
@@ -240,6 +244,9 @@ int LUA_HookLib(lua_State *L)
 	errorRef = luaL_ref(L, LUA_REGISTRYINDEX);
 
 	lua_register(L, "addHook", lib_addHook);
+	#ifdef __SWITCH__
+	lua_register(L,"GetText",LUA_GetText);
+	#endif
 
 	return 0;
 }

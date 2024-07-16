@@ -503,6 +503,7 @@ rawset(_G, "SYS_handleMenu", function()
 				end
 
 				if c[4] == CT_CVARTEXT and e == KEY_ENTER	-- input the text in the console
+					m.textfields[m.choice] = GetText("", m.textfields[m.choice])
 					local cv = c[5]
 					local qte = "\""
 

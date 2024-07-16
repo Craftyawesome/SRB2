@@ -2,6 +2,7 @@
 #define _SWITCH_SWKBD
 
 #include <switch/applets/swkbd.h>
+#include "../blua/lua.h"
 
 extern SwkbdInline switch_kbdinline;
 extern SwkbdAppearArg switch_appearArg;
@@ -13,5 +14,6 @@ void Switch_Keyboard_Init();
 void Switch_Keyboard_Update();
 void Switch_Keyboard_Open();
 void Switch_Keyboard_Close();
+int LUA_GetText(lua_State *L);
 
 #endif
