@@ -49,10 +49,10 @@ ifeq ($(STATIC),1)
 endif
 
 ifeq ($(DEBUG),1)
-	CFLAGS += -g
+	CFLAGS += -g3
 	STRIP = :
 else
-	CFLAGS += -O3 -flto -flto-partition=one
+	CFLAGS += -O3 -flto -flto-partition=one -g3
 	DEFINES += -DNDEBUG
 endif
 
@@ -269,7 +269,6 @@ $(BINPATH): $(OBJDIR) $(OBJECTS)
 	@echo -n Linking...
 	$(CXX) $(CFLAGS) $(LDFLAGS) $(OBJECTS) -o $@ $(LIBS)
 	@echo " Done!"
-	$(STRIP) $@
 
 ifeq ($(BINPATH),$(PKGPATH))
 all: $(BINPATH)
