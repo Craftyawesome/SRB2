@@ -25,22 +25,22 @@ jobs:
     - name: make 
       run: make PLATFORM=Switch
     - name: Upload NRO
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: nro
         path: bin/Switch/srb2switch22.nro
     - name: Upload full zip
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: full
         path: bin/Switch/srb2switch22_*.full.zip
-    - name: Upload NRO update zip
-      uses: actions/upload-artifact@v2
-      with:
-        name: update_nro
-        path: bin/Switch/srb2switch22_*.update.nro.zip
+    #- name: Upload NRO update zip
+    # uses: actions/upload-artifact@v4
+    # with:
+    #   name: update_nro
+    #   path: bin/Switch/srb2switch22_*.update.nro.zip
     # - name: Upload update zip
-    #   uses: actions/upload-artifact@v2
+    #   uses: actions/upload-artifact@v4
     #   with:
     #     name: update
     #     path: bin/Switch/srb2switch22_*.update.zip
