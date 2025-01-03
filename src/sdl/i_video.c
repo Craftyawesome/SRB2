@@ -2080,3 +2080,17 @@ UINT32 I_GetRefreshRate(void)
 	// trouble querying mode over and over again.
 	return refresh_rate;
 }
+
+#ifdef __SWITCH__
+inline void updateRes(AppletOperationMode opMode) {
+	if (rendermode == render_soft)
+		setmodeneeded = VID_GetModeForSize(800, 450)+1;
+	else {
+		if (opMode == AppletOperationMode_Handheld) {
+			setmodeneeded = VID_GetModeForSize(1280, 720)+1;
+		} else {
+			setmodeneeded = VID_GetModeForSize(1920, 1080)+1;
+		}
+	}
+}
+#endif

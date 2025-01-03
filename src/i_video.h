@@ -153,4 +153,8 @@ void I_EndRead(void);
 
 UINT32 I_GetRefreshRate(void);
 
+#ifdef __SWITCH__
+#include <switch.h>
+void updateRes(AppletOperationMode opMode);
+#endif
 #endif
