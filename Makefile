@@ -8,7 +8,7 @@ STATIC		?= 1
 VERBOSE		?= 0
 PROFILE		?= 0
 STRIP		?= strip
-DEFINES		?= -DHAVE_SDL -DHAVE_THREADS -DHAVE_MIXER -DHAVE_ZLIB -DHAVE_CURL -DLOGMESSAGES -DHWRENDER -DHAVE_PNG
+DEFINES		?= -DHAVE_SDL -DHAVE_THREADS -DHAVE_MIXER -DHAVE_ZLIB -DHAVE_CURL -DLOGMESSAGES -DHWRENDER -DHAVE_PNG -DNO_IPV6
 
 # =============================================================================
 # Detect default platform if not explicitly specified
@@ -99,6 +99,7 @@ SOURCES := \
 	src/hardware/hw_light \
 	src/hardware/hw_draw \
 	src/hardware/hw3sound \
+	src/hardware/hw_shaders \
 	src/sdl/i_net \
 	src/sdl/i_system \
 	src/sdl/i_main \
@@ -113,10 +114,6 @@ SOURCES := \
 	src/apng \
 	src/string \
 	src/d_main \
-	src/d_clisrv \
-	src/d_net \
-	src/d_netfil \
-	src/d_netcmd \
 	src/dehacked \
 	src/deh_soc \
 	src/deh_lua \
@@ -146,6 +143,7 @@ SOURCES := \
 	src/m_perfstats \
 	src/m_random \
 	src/m_queue \
+	src/m_tokenizer \
 	src/info \
 	src/p_ceilng \
 	src/p_enemy \
@@ -176,6 +174,7 @@ SOURCES := \
 	src/r_splats \
 	src/r_things \
 	src/r_textures \
+	src/r_translation \
 	src/r_patch \
 	src/r_patchrotation \
 	src/r_picformats \
@@ -187,9 +186,6 @@ SOURCES := \
 	src/sounds \
 	src/w_wad \
 	src/filesrch \
-	src/mserv \
-	src/http-mserv \
-	src/i_tcp \
 	src/lzf \
 	src/b_bot \
 	src/lua_script \
@@ -240,7 +236,23 @@ SOURCES := \
 	src/r_fps \
 	src/u_list \
 	src/blua/loslib \
-	src/r_bbox
+	src/r_bbox \
+	src/lua_colorlib \
+	src/m_vector \
+	src/snake \
+	src/netcode/d_clisrv \
+	src/netcode/server_connection \
+	src/netcode/client_connection \
+	src/netcode/tic_command \
+	src/netcode/net_command \
+	src/netcode/gamestate \
+	src/netcode/commands \
+	src/netcode/d_net \
+	src/netcode/d_netcmd \
+	src/netcode/d_netfil \
+	src/netcode/http-mserv \
+	src/netcode/i_tcp \
+	src/netcode/mserv
 
 
 PKGSUFFIX ?= $(SUFFIX)

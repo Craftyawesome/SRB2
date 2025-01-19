@@ -1,5 +1,5 @@
 #!/bin/sh
-FULLURL="https://github.com/STJr/SRB2/releases/download/SRB2_release_2.2.13/SRB2-v2213-Full.zip"
+FULLURL="https://github.com/STJr/SRB2/releases/download/SRB2_release_2.2.14/SRB2-v2214-Full.zip"
 PATCHURL=""
 DOWNLOADCMD="curl -Lo"
 

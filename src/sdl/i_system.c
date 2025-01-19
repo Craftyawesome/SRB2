@@ -3311,10 +3311,15 @@ const char *I_GetSysName(void)
 
 void I_SetTextInputMode(boolean active)
 {
+	#ifdef __SWITCH__
+	//This pops up the keyboard but input doesn't seem to register, so return
+	return;
+	#else
 	if (active)
 		SDL_StartTextInput();
 	else
 		SDL_StopTextInput();
+	#endif
 }
 
 boolean I_GetTextInputMode(void)
