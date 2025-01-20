@@ -13754,7 +13754,11 @@ static void M_DrawControl(void)
 	else
 		V_DrawCenteredString(BASEVIDWIDTH/2, 30, 0,
 		    (setupcontrols_secondaryplayer ? "SET CONTROLS FOR SECONDARY PLAYER" :
+			#ifdef __SWITCH__
+		                                     "PRESS A TO CHANGE, X TO CLEAR"));
+			#else
 		                                     "PRESS ENTER TO CHANGE, BACKSPACE TO CLEAR"));
+			#endif
 
 	if (i)
 		V_DrawString(currentMenu->x - 16, y-(skullAnimCounter/5), V_YELLOWMAP, "\x1A"); // up arrow
