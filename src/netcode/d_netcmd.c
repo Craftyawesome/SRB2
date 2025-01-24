@@ -909,6 +909,9 @@ void D_RegisterClientCommands(void)
 	CV_RegisterVar(&cv_numChannels);
 
 	// screen.c
+	#ifdef __SWITCH__
+	CV_RegisterVar(&cv_autores);
+	#endif
 	CV_RegisterVar(&cv_fullscreen);
 	CV_RegisterVar(&cv_renderer);
 	CV_RegisterVar(&cv_scr_depth);

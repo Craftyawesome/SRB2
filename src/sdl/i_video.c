@@ -2028,14 +2028,22 @@ UINT32 I_GetRefreshRate(void)
 }
 
 #ifdef __SWITCH__
-inline void updateRes(AppletOperationMode opMode) {
-	if (rendermode == render_soft)
-		setmodeneeded = VID_GetModeForSize(800, 450)+1;
-	else {
-		if (opMode == AppletOperationMode_Handheld) {
-			setmodeneeded = VID_GetModeForSize(1280, 720)+1;
-		} else {
-			setmodeneeded = VID_GetModeForSize(1920, 1080)+1;
+inline void updateRes(int assumeChange) {
+	static AppletOperationMode lastOpMode = AppletOperationMode_Handheld;
+
+	if (cv_autores.value) {
+		AppletOperationMode opMode = appletGetOperationMode();
+		if (assumeChange || lastOpMode != opMode) {
+			if (cv_renderer.value == render_soft)
+				setmodeneeded = VID_GetModeForSize(800, 450)+1;
+			else {
+				if (opMode == AppletOperationMode_Handheld) {
+					setmodeneeded = VID_GetModeForSize(1280, 720)+1;
+				} else {
+					setmodeneeded = VID_GetModeForSize(1920, 1080)+1;
+				}
+			}
+			lastOpMode = opMode;
 		}
 	}
 }

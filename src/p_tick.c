@@ -35,9 +35,6 @@
 #ifdef __SWITCH__
 #include <switch.h>
 bool lastCanAutoPause = true;
-AppletOperationMode opMode = AppletOperationMode_Handheld;
-AppletOperationMode lastOpMode = AppletOperationMode_Handheld;
-rendermode_t lastRendermode = render_soft;
 #endif
 
 #ifdef PARANOIA
@@ -754,15 +751,8 @@ void P_Ticker(boolean run)
 		lastCanAutoPause = P_CanAutoPause();
 	}
 	
-	// Handle auto resolution (variable misnamed)
-	if (cv_fullscreen.value) {
-		opMode = appletGetOperationMode();
-		if (lastRendermode != rendermode || lastOpMode != opMode) {
-			updateRes(opMode);
-			lastRendermode = rendermode;
-			lastOpMode = opMode;
-		}
-	}
+	// Handle auto resolution
+	updateRes(0);
 	#endif
 
 	// Check for pause or menu up in single player

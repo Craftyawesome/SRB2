@@ -88,6 +88,14 @@ CV_PossibleValue_t cv_renderer_t[] = {
 
 consvar_t cv_renderer = CVAR_INIT ("renderer", "Software", CV_SAVE|CV_CALL, cv_renderer_t, SCR_ChangeRenderer);
 
+#ifdef __SWITCH__
+static void forceUpdateRes (void) {
+    updateRes(1);
+}
+
+consvar_t cv_autores = CVAR_INIT ("autores", "Yes", CV_SAVE|CV_CALL, CV_YesNo, forceUpdateRes);
+#endif
+
 static void SCR_ChangeFullscreen(void);
 
 consvar_t cv_fullscreen = CVAR_INIT ("fullscreen", "Yes", CV_SAVE|CV_CALL, CV_YesNo, SCR_ChangeFullscreen);
@@ -293,13 +301,12 @@ void SCR_CheckDefaultMode(void)
 		CONS_Printf(M_GetText("Default resolution: %d x %d\n"), cv_scr_width.value, cv_scr_height.value);
 		CONS_Printf(M_GetText("Windowed resolution: %d x %d\n"), cv_scr_width_w.value, cv_scr_height_w.value);
 		CONS_Printf(M_GetText("Default bit depth: %d bits\n"), cv_scr_depth.value);
+		#ifdef __SWITCH__
+		updateRes(1);
+		return;
+		#endif
 		if (cv_fullscreen.value)
-			#ifdef __SWITCH__
-			//fullscreen means auto res
-			updateRes(appletGetOperationMode());
-			#else
 			setmodeneeded = VID_GetModeForSize(cv_scr_width.value, cv_scr_height.value) + 1; // see note above
-			#endif
 		else
 			setmodeneeded = VID_GetModeForSize(cv_scr_width_w.value, cv_scr_height_w.value) + 1; // see note above
 
@@ -378,6 +385,10 @@ void SCR_ChangeRenderer(void)
 
 	// Set the new render mode
 	setrenderneeded = cv_renderer.value;
+
+	#ifdef __SWITCH__
+	updateRes(1);
+	#endif
 }
 
 boolean SCR_IsAspectCorrect(INT32 width, INT32 height)

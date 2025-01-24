@@ -1305,7 +1305,7 @@ static menuitem_t OP_VideoOptionsMenu[] =
 	{IT_STRING | IT_CALL,  NULL, "Set Resolution...",       M_VideoModeMenu,          6},
 
 #ifdef __SWITCH__
-	{IT_STRING|IT_CVAR,      NULL, "Auto Resolution",           &cv_fullscreen,      11},
+	{IT_STRING|IT_CVAR,      NULL, "Auto Resolution",           &cv_autores,         11},
 #elif defined (__unix__) || defined (UNIXCOMMON) || defined (HAVE_SDL)
 	{IT_STRING|IT_CVAR,      NULL, "Fullscreen (F11)",          &cv_fullscreen,      11},
 #endif
@@ -14108,7 +14108,7 @@ static void M_DrawMainVideoMenu(void)
 static void M_DrawVideoMode(void)
 {
 	#ifdef __SWITCH__
-	if (cv_fullscreen.value) { // Actually auto res
+	if (cv_autores.value) {
 		M_SetupNextMenu(currentMenu->prevMenu);
 	}
 	#endif
