@@ -302,8 +302,10 @@ void SCR_CheckDefaultMode(void)
 		CONS_Printf(M_GetText("Windowed resolution: %d x %d\n"), cv_scr_width_w.value, cv_scr_height_w.value);
 		CONS_Printf(M_GetText("Default bit depth: %d bits\n"), cv_scr_depth.value);
 		#ifdef __SWITCH__
-		updateRes(1);
-		return;
+		if (cv_autores.value) {
+			updateRes(1);
+			return;
+		}
 		#endif
 		if (cv_fullscreen.value)
 			setmodeneeded = VID_GetModeForSize(cv_scr_width.value, cv_scr_height.value) + 1; // see note above
