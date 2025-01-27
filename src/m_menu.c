@@ -14021,6 +14021,12 @@ static modedesc_t modedescs[MAXMODEDESCS];
 
 static void M_VideoModeMenu(INT32 choice)
 {
+	#ifdef __SWITCH__
+	if (cv_autores.value) {
+		M_StartMessage("Turn off auto resolution to set a resolution.\n",NULL,MM_NOTHING);
+		return;
+	}
+	#endif
 	INT32 i, j, vdup, nummodes, width, height;
 	const char *desc;
 
@@ -14107,11 +14113,6 @@ static void M_DrawMainVideoMenu(void)
 // Draw the video modes list, a-la-Quake
 static void M_DrawVideoMode(void)
 {
-	#ifdef __SWITCH__
-	if (cv_autores.value) {
-		M_SetupNextMenu(currentMenu->prevMenu);
-	}
-	#endif
 	INT32 i, j, row, col;
 
 	// draw title
