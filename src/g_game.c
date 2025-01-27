@@ -408,7 +408,6 @@ consvar_t cv_sideaxis =			CVAR_INIT ("joyaxis_side",			"X-Axis", 		CV_SAVE, 			j
 consvar_t cv_lookaxis =			CVAR_INIT ("joyaxis_look",			"X-Rudder-", 	CV_SAVE, 			joyaxis_cons_t, 	NULL);
 consvar_t cv_jumpaxis =			CVAR_INIT ("joyaxis_jump",			"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
 consvar_t cv_spinaxis =			CVAR_INIT ("joyaxis_spin",			"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
-consvar_t cv_shieldaxis = 		CVAR_INIT ("joyaxis_shield",     	"None",     	CV_SAVE,			joyaxis_cons_t,		NULL);
 consvar_t cv_fireaxis =			CVAR_INIT ("joyaxis_fire",			"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
 consvar_t cv_firenaxis =		CVAR_INIT ("joyaxis_firenormal",	"None", 		CV_SAVE, 			joyaxis_cons_t, 	NULL);
 consvar_t cv_deadzone = 		CVAR_INIT ("joy_deadzone",			"0.125",		CV_FLOAT|CV_SAVE,	zerotoone_cons_t, 	NULL);
@@ -420,7 +419,6 @@ consvar_t cv_sideaxis2 =		CVAR_INIT ("joyaxis2_side",			"X-Axis", 		CV_SAVE, 			
 consvar_t cv_lookaxis2 =		CVAR_INIT ("joyaxis2_look",			"X-Rudder-", 	CV_SAVE, 			joyaxis_cons_t,		NULL);
 consvar_t cv_jumpaxis2 =		CVAR_INIT ("joyaxis2_jump",			"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
 consvar_t cv_spinaxis2 =		CVAR_INIT ("joyaxis2_spin",			"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
-consvar_t cv_shieldaxis2 = 		CVAR_INIT ("joyaxis2_shield",     	"None",     	 CV_SAVE, 			joyaxis_cons_t, 	NULL);
 consvar_t cv_fireaxis2 =		CVAR_INIT ("joyaxis2_fire",			"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
 consvar_t cv_firenaxis2 =		CVAR_INIT ("joyaxis2_firenormal",	"None", 		CV_SAVE, 			joyaxis_cons_t,		NULL);
 consvar_t cv_deadzone2 = 		CVAR_INIT ("joy_deadzone2", 		"0.125",		CV_FLOAT|CV_SAVE, 	zerotoone_cons_t,	NULL);
@@ -432,7 +430,6 @@ consvar_t cv_lookaxis   = CVAR_INIT ("joyaxis_look",       "X-Rudder-", CV_SAVE,
 consvar_t cv_turnaxis   = CVAR_INIT ("joyaxis_turn",       "Z-Axis",    CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_jumpaxis   = CVAR_INIT ("joyaxis_jump",       "None",      CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_spinaxis   = CVAR_INIT ("joyaxis_spin",       "None",      CV_SAVE, joyaxis_cons_t, NULL);
-consvar_t cv_shieldaxis = CVAR_INIT ("joyaxis_shield",     "None",      CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_fireaxis   = CVAR_INIT ("joyaxis_fire",       "Z-Rudder",  CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_firenaxis  = CVAR_INIT ("joyaxis_firenormal", "Z-Axis",    CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_deadzone        = CVAR_INIT ("joy_deadzone",    "0.125", CV_FLOAT|CV_SAVE, zerotoone_cons_t, NULL);
@@ -444,7 +441,6 @@ consvar_t cv_lookaxis2   = CVAR_INIT ("joyaxis2_look",       "X-Rudder-", CV_SAV
 consvar_t cv_turnaxis2   = CVAR_INIT ("joyaxis2_turn",       "Z-Axis",    CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_jumpaxis2   = CVAR_INIT ("joyaxis2_jump",       "None",      CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_spinaxis2   = CVAR_INIT ("joyaxis2_spin",       "None",      CV_SAVE, joyaxis_cons_t, NULL);
-consvar_t cv_shieldaxis2 = CVAR_INIT ("joyaxis2_shield",     "None",      CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_fireaxis2   = CVAR_INIT ("joyaxis2_fire",       "Z-Rudder",  CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_firenaxis2  = CVAR_INIT ("joyaxis2_firenormal", "Z-Axis",    CV_SAVE, joyaxis_cons_t, NULL);
 consvar_t cv_deadzone2        = CVAR_INIT ("joy_deadzone2",    "0.125", CV_FLOAT|CV_SAVE, zerotoone_cons_t, NULL);
@@ -920,9 +916,6 @@ INT32 JoyAxis(joyaxis_e axissel)
 		case JA_SPIN:
 			axisval = cv_spinaxis.value;
 			break;
-		case JA_SHIELD:
-			axisval = cv_shieldaxis.value;
-			break;
 		case JA_FIRE:
 			axisval = cv_fireaxis.value;
 			break;
@@ -995,9 +988,6 @@ INT32 Joy2Axis(joyaxis_e axissel)
 			break;
 		case JA_SPIN:
 			axisval = cv_spinaxis2.value;
-			break;
-		case JA_SHIELD:
-			axisval = cv_shieldaxis2.value;
 			break;
 		case JA_FIRE:
 			axisval = cv_fireaxis2.value;
@@ -1366,10 +1356,10 @@ void G_BuildTiccmd(ticcmd_t *cmd, INT32 realtics, UINT8 ssplayer)
 	if (PLAYERINPUTDOWN(ssplayer, GC_WEAPONPREV))
 		cmd->buttons |= BT_WEAPONPREV; // Previous Weapon
 
-#if NUM_WEAPONS > 7
-"Add extra inputs to g_input.h/gamecontrols_e, and fix conflicts in d_ticcmd.h/ticcmd_t/buttons"
+#if NUM_WEAPONS > 10
+"Add extra inputs to g_input.h/gamecontrols_e"
 #endif
-	//use the three avaliable bits to determine the weapon.
+	//use the four avaliable bits to determine the weapon.
 	cmd->buttons &= ~BT_WEAPONMASK;
 	for (i = 0; i < NUM_WEAPONS; ++i)
 		if (PLAYERINPUTDOWN(ssplayer, GC_WEPSLOT1 + i))
@@ -1388,14 +1378,8 @@ void G_BuildTiccmd(ticcmd_t *cmd, INT32 realtics, UINT8 ssplayer)
 	if (PLAYERINPUTDOWN(ssplayer, GC_FIRENORMAL) || (usejoystick && axis > 0))
 		cmd->buttons |= BT_FIRENORMAL;
 
-	// Toss flag button
 	if (PLAYERINPUTDOWN(ssplayer, GC_TOSSFLAG))
 		cmd->buttons |= BT_TOSSFLAG;
-
-	// Shield button
-	axis = PlayerJoyAxis(ssplayer, JA_SHIELD);
-	if (PLAYERINPUTDOWN(ssplayer, GC_SHIELD) || (usejoystick && axis > 0))
-		cmd->buttons |= BT_SHIELD;
 
 	// Lua scriptable buttons
 	if (PLAYERINPUTDOWN(ssplayer, GC_CUSTOM1))
@@ -2803,7 +2787,6 @@ void G_PlayerReborn(INT32 player, boolean betweenmaps)
 	p->pflags |= PF_SPINDOWN;
 	p->pflags |= PF_ATTACKDOWN;
 	p->pflags |= PF_JUMPDOWN;
-	p->pflags |= PF_SHIELDDOWN;
 
 	p->playerstate = PST_LIVE;
 	p->panim = PA_IDLE; // standing animation
