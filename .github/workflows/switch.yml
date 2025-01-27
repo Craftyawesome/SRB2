@@ -3,9 +3,9 @@ name: Nintendo Switch
 on:
   workflow_dispatch:
   push:
-    branches: [ switch-port-2.2.14 ]
+    branches: [ switch-port-2.2.15 ]
   pull_request:
-    branches: [ switch-port-2.2.14 ]
+    branches: [ switch-port-2.2.15 ]
 
 jobs:
   build:
