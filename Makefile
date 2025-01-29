@@ -44,6 +44,8 @@ include Makefile_cfgs/Platforms/$(PLATFORM).cfg
 
 # =============================================================================
 
+CFLAGS += -fwrapv
+
 ifeq ($(STATIC),1)
 	PKGCONFIG +=  --static
 endif
