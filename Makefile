@@ -44,7 +44,7 @@ include Makefile_cfgs/Platforms/$(PLATFORM).cfg
 
 # =============================================================================
 
-CFLAGS += -fwrapv
+CFLAGS += -fwrapv -Wno-incompatible-pointer-types
 
 ifeq ($(STATIC),1)
 	PKGCONFIG +=  --static
