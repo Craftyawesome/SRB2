@@ -69,7 +69,7 @@ endif
 
 REQUIRED_LIBS = libcurl sdl2 SDL2_mixer zlib libpng
 
-CFLAGS += $(shell $(PKGCONFIG) --cflags $(REQUIRED_LIBS))
+CFLAGS += $(shell $(PKGCONFIG) --cflags $(REQUIRED_LIBS)) -std=gnu17
 LIBS += $(shell $(PKGCONFIG) --libs $(REQUIRED_LIBS))
 INCLUDES +=	-I$(LIBNX)/include -I$(PORTLIBS)/include/GLFW -I$(PORTLIBS)/include
 LDFLAGS += -lnx -lnxd
