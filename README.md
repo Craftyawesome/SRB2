@@ -1,7 +1,7 @@
 # Sonic Robo Blast 2
 [![latest release](https://badgen.net/github/release/STJr/SRB2/stable)](https://github.com/STJr/SRB2/releases/latest)
 
-[![Nintendo Switch](https://github.com/heyjoeway/SRB2/actions/workflows/switch.yml/badge.svg)](https://github.com/heyjoeway/SRB2/actions/workflows/switch.yml)
+[![Nintendo Switch](https://github.com/Craftyawesome/SRB2/actions/workflows/switch.yml/badge.svg)](https://github.com/Craftyawesome/SRB2/actions/workflows/switch.yml)
 
 [Sonic Robo Blast 2](https://srb2.org/) is a 3D Sonic the Hedgehog fangame based on a modified version of [Doom Legacy](http://doomlegacy.sourceforge.net/).
 
@@ -9,7 +9,7 @@
 This fork aims to support the Nintendo Switch.
 
 ## Installation Instructions
-You can find downloads in [releases](https://github.com/heyjoeway/SRB2/releases).
+You can find downloads in [releases](https://github.com/Craftyawesome/SRB2/releases).
 
 1. Make sure your Switch can run homebrew.
 2. Extract the contents of the zip to the root of your SD card.
@@ -33,6 +33,7 @@ Extract the contents of the update patch to the root of your SD card. Overwrite 
 - The game continues to run while on the Switch's home screen when you are unable to pause to prevent lag-switching.
 - If you want to play the game with mouse/keyboard, you'll have to bind most of the buttons yourself.
 - All button bindings are set "correctly" out-of-the-box. You might want to tweak them to your liking though.
+- Consider using the lagkiller addon https://mb.srb2.org/addons/lag-reduction-script.5288/
 
 ## Compilation
 
