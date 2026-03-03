@@ -338,7 +338,7 @@ int md5_stream (FILE *stream, void *resblock)
 {
   /* Important: BLOCKSIZE must be a multiple of 64.  */
 #ifdef __SWITCH__
-#define BLOCKSIZE 524288
+#define BLOCKSIZE 65536
 #else
 #define BLOCKSIZE 4096
 #endif
