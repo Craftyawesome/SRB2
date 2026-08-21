@@ -23,7 +23,7 @@ jobs:
     - name: make clean
       run: make PLATFORM=Switch clean
     - name: make 
-      run: make PLATFORM=Switch
+      run: make PLATFORM=Switch ZIPSTEPS=1
     - name: Upload NRO
       uses: actions/upload-artifact@v4
       with:
