@@ -57,7 +57,7 @@ struct my_addrinfo {
 
 void WS_addrinfocleanup(void);
 
-#ifndef my_addrinfo
+#if defined(__SWITCH__) || !defined(my_addrinfo)
 void I_freeaddrinfo(struct my_addrinfo *res);
 int I_getaddrinfo(const char *node, const char *service,
                          const struct my_addrinfo *hints,
